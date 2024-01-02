@@ -1,16 +1,11 @@
-
-import Header from '@/components/layout/Header';
-import Hero from '@/components/layout/Hero';
+import Hero from './../components/layout/Hero';
 import HomeMenu from './../components/layout/HomeMenu';
 import SectionHeader from './../components/layout/SectionHeader';
 
 export default function Home() {
-  let newDate = new Date()
-  let year = newDate.getFullYear();
-
+  
   return (
     <>
-      <Header />
       <Hero />
       <HomeMenu />
       <section className='text-center my-16'>
@@ -29,9 +24,7 @@ export default function Home() {
         </div>
         
       </section>
-      <footer className='text-center text-gray-500 border-t p-8'>
-        &copy; {year} All rights reserved
-      </footer>
+
     </>
   )
 }
