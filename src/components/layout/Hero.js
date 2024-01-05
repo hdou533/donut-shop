@@ -23,7 +23,7 @@ const Hero = () => {
                 </div>
             </div>
             <div className='relative'>
-                <Image src={'/hero.jpg'} alt='donut' layout={'fill'} objectFit={'contain'} />
+                <Image src={'/hero.jpg'} alt='donut' fill style={{ objectFit: 'contain'}} />
             </div>
 
         </section>

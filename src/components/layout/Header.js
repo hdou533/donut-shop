@@ -1,5 +1,6 @@
 'use client'
 import { signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const Header = () => {
@@ -35,7 +36,7 @@ const Header = () => {
                     {status === 'authenticated' ? (
                         <>
                             <>
-                                <img src={avatar} alt='avatar' className='w-6 h-6 rounded-full' />
+                                <Image src={avatar} alt='avatar' width={24} height={24} className='rounded-full' />
                                 <Link href={'/profile'} className='whitespace-nowrap text-gray-700'>Hi, {userName}</Link>
                             </>
                             

@@ -8,10 +8,10 @@ const HomeMenu = () => {
         <section>
             <div className='relative'>
                 <div className='h-24 w-24 absolute left-0 top-4 -z-10'>
-                    <Image src={'/menu-bg.png'} alt="donuts" layout={"fill"} objectFit={ 'contain'} className='transform rotate-12'/>
+                    <Image src={'/menu-bg.png'} alt="donuts" fill style={{ objectFit: 'contain'}} className='transform rotate-12'/>
                 </div>
                 <div className='h-24 w-24 absolute right-0 -top-8 -z-10'>
-                    <Image src={'/menu-bg.png'} alt="donuts" layout={"fill"} objectFit={ 'contain'} className='transform -rotate-12'/>
+                    <Image src={'/menu-bg.png'} alt="donuts" fill style={{ objectFit: 'contain'}} className='transform -rotate-12'/>
                 </div>
             </div>
            
