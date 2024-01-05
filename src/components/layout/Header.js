@@ -4,7 +4,17 @@ import Link from 'next/link';
 
 const Header = () => {
     const session = useSession()
+    // console.log(session)
     const status = session.status
+    const userData = session.data?.user
+    const avatar = userData?.image
+    
+
+    let userName = userData?.name || userData?.email
+    if (userName && userName.includes(' ')) {
+        userName = userName.split(' ')[0]
+    }
+    
 
     return (
         <>
@@ -21,9 +31,17 @@ const Header = () => {
                     </nav>
                 </div>
                 
-                <div className='flex gap-6 items-center font-semibold'>
+                <div className='flex gap-4 items-center font-semibold'>
                     {status === 'authenticated' ? (
-                        <button onClick={() => signOut()} className='bg-primary text-white rounded-full px-6 py-2'>Logout</button>
+                        <>
+                            <>
+                                <img src={avatar} alt='avatar' className='w-6 h-6 rounded-full' />
+                                <Link href={'/profile'} className='whitespace-nowrap text-gray-700'>Hi, {userName}</Link>
+                            </>
+                            
+                            <button onClick={() => signOut()} className='bg-primary text-white rounded-full px-6 py-2'>Logout</button>
+                        </>
+                        
                     ) : (
                         <>
                             <Link href={'/login'} className='text-gray-500'>Login</Link>
