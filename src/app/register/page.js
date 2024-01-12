@@ -49,8 +49,8 @@ const RegisterPage = () => {
                 </div>
             )}
             <form action="" className="block max-w-xs mx-auto" onSubmit={handleFormSubmit}>
-                <input type="email" placeholder="email" value={email} onChange={ev => setEmail(ev.target.value)} disabled={creatingUser} />
-                <input type="password" placeholder="password" value={password} onChange={ev => setPassword(ev.target.value)} disabled={creatingUser}/>
+                <input type="email" placeholder="email" value={email} onChange={ev => setEmail(ev.target.value)} disabled={creatingUser} className="mb-4"/>
+                <input type="password" placeholder="password" value={password} onChange={ev => setPassword(ev.target.value)} disabled={creatingUser} className="mb-4"/>
                 <button type="submit" disabled={creatingUser}>Register</button>
                 <div className="my-4 text-center text-gray-500">
                     or login with provider

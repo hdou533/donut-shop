@@ -32,8 +32,8 @@ const LoginPage = () => {
             </h1>
             
             <form className="block max-w-xs mx-auto" onSubmit={handleFormSubmit}>
-                <input type="email" name="email" placeholder="email" value={email} onChange={ev => setEmail(ev.target.value)} disabled={loginOnPrgress} />
-                <input type="password" name="password" placeholder="password" value={password} onChange={ev => setPassword(ev.target.value)} disabled={loginOnPrgress}/>
+                <input type="email" name="email" placeholder="email" value={email} onChange={ev => setEmail(ev.target.value)} disabled={loginOnPrgress} className="mb-4"/>
+                <input type="password" name="password" placeholder="password" value={password} onChange={ev => setPassword(ev.target.value)} disabled={loginOnPrgress} className="mb-4"/>
                 <button type="submit" disabled={loginOnPrgress}>Login</button>
                 <div className="my-4 text-center text-gray-500">
                     or login with provider
