@@ -25,6 +25,10 @@ input[type="tel"]:disabled {
     @apply bg-gray-300 
 }
 
+textarea {
+    @apply block w-full rounded-xl;
+    @apply p-2.5  text-gray-700 bg-gray-50 border border-gray-300 
+}
 
 button, .button {
     @apply block w-full text-gray-700 font-semibold;
@@ -50,4 +54,6 @@ div.tabs > * {
 div.tabs > *.active {
     @apply bg-primary text-white;
 }
-th {width:1px;}
+option {
+    width: 120px !important;
+}

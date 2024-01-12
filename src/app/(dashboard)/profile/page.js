@@ -106,7 +106,7 @@ const ProfilePage = () => {
                 
                 <form className=' grow' onSubmit={handleProfileUpdate}>
                 
-                        <div className=''>
+                        <div className='flex flex-col gap-2'>
                             <label htmlFor="fullname">Full Name</label>
                             <input type="text" name="fullname" placeholder='Full Name' value={username} onChange={e => setUsername(e.target.value)} />
 
@@ -127,7 +127,11 @@ const ProfilePage = () => {
                             
                             <label htmlFor="country">Country</label>
                             <input type="text" name='country' placeholder='Country' value={country} onChange={e => setCountry(e.target.value)}/>
-
+                            {admin && <div className='flex gap-2'>
+                                <label htmlFor="">Admin</label>
+                                <input type="checkbox" checked={admin} />
+                            </div>}
+                       
                         </div>
                    
                     

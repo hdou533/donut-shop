@@ -3,6 +3,7 @@ import { useProfile } from "@/components/UseProfile";
 import UserTab from "@/components/layout/UserTab";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import DeleteBtn from './../../../components/DeleteBtn';
 
 
 
@@ -61,6 +62,32 @@ const CategoriesPage = () => {
         })
         
     }
+
+    const handleDeleteSubmit = async (_id) => {
+        const promise = new Promise(async (resolve, reject) => {
+           const response = await fetch('/api/categories?_id=' + _id, {
+                method: 'DELETE',
+           })
+            
+            if (response.ok) {
+                resolve()
+            } else {
+                reject()
+            }
+        })
+
+        
+
+        await toast.promise(promise, {
+            loading: 'Deleting...',
+            success: 'Deleted',
+            error: 'Error'
+            
+        })
+
+        fetchCategories()
+        
+    }
     
     if (profileLoading) {
         return 'Loading user info...'
@@ -75,7 +102,7 @@ const CategoriesPage = () => {
             
             <form className="mt-8" onSubmit={handleCategorySubmit}>
                 <h2 className="my-4 font-semibold">
-                    {editCategory ? `Update category ${editCategory.name}` : 'Add a new category'}
+                    {editCategory ? `Update category: ${editCategory.name}` : 'Add a new category: '}
                 </h2>
                 <div className="flex items-end gap-4">
                     <div className="grow">
@@ -97,16 +124,22 @@ const CategoriesPage = () => {
             <h2 className="my-4 font-semibold">Current Categories</h2>
             <ul className="">
                 {categories?.length > 0 && categories.map(c => (
-                    <li key={c._id} className="mb-2">
-                        <button
-                            className="text-left bg-gray-300 border border-gray-400"
-                            onClick={() => {
-                                setEditCategory(c)
-                                setCategoryName(c.name)
-                            }}
+                    <li key={c._id} className="mb-2 flex justify-between items-center gap-4 border rounded-lg p-2">
+                        <div
+                            className=" grow "
+                            
                         >
                             {c.name}
-                        </button>
+                        </div>
+                        <div className="flex gap-2 max-h-10">
+                            <button onClick={() => {
+                                setEditCategory(c)
+                                setCategoryName(c.name)
+                            }}>Edit</button>
+                            <DeleteBtn
+                                label={"Delete"}
+                                onDelete={() => handleDeleteSubmit(c._id)} />
+                        </div>
                     </li>
                 ))}
             </ul>

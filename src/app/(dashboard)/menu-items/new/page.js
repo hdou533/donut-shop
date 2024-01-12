@@ -1,32 +1,23 @@
 'use client'
 
 import { useProfile } from "@/components/UseProfile";
-import EditableImage from "@/components/layout/EditableImage";
 import UserTab from "@/components/layout/UserTab";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import MenuItemForm from '@/components/layout/MenuItemForm';
+
 
 
 const NewItemPage = () => {
     
-    const [name, setName] = useState('')
-    const [menuItems, setMenuItems] = useState([])
-    const [image, setImage] = useState('')
-    const [description, setDescription] = useState('')
-    const [price, setPrice] = useState('')
-
-    const { data: profileData, loading: profileLoading } = useProfile()
     
-    useEffect(() => {
-        fetch('/api/menu-items').then(res => {
-            res.json().then(menuItems => {
-                setMenuItems(menuItems)
-            })
-        })
-    },[])
+    const router = useRouter()
+    const {loading, data} = useProfile();
+    
 
-    const handleMenuItemSubmit = (e) => {
+
+    const handleMenuItemSubmit = (e, data) => {
         e.preventDefault()
 
         const createPromise = new Promise(async (resolve, reject) => {
@@ -34,17 +25,13 @@ const NewItemPage = () => {
             const response = await fetch('/api/menu-items', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name,
-                    image,
-                    description,
-                    price,
-                })
+                body: JSON.stringify(data)
             })
 
             if (response.ok) {
                 
                 resolve()
+                router.push('/menu-items')
             } else {
                 reject()
             }
@@ -55,38 +42,31 @@ const NewItemPage = () => {
             success: 'New menu item created',
             error: 'error'
         })
+
+        
         
     }
 
-    if (profileLoading) {
-        return 'Loading user info...'
-    }
-
-    if (!profileData.admin) {
-        return 'Not an Admin'
-    }
+    if (loading) {
+        return 'Loading user info...';
+      }
+    
+      if (!data.admin) {
+        return 'Not an admin.';
+      }
+    
 
 
     return ( 
         <section className='max-w-lg mx-auto min-h-60 mb-8'>
-            <UserTab isAdmin={profileData.admin} />
-            <form className="mt-8" onSubmit={handleMenuItemSubmit}>
-                <div className="flex gap-8">
-                    <div className="flex flex-col gap-4 items-center">
-                        <EditableImage link={image} setLink={setImage} />
-                    </div>
-                    <div className="grow">
-                        <label htmlFor="">Item name</label>
-                        <input type="text" value={name} onChange={e => setName(e.target.value)}/>
-                        <label htmlFor="">Description</label>
-                        <input type="text" value={description} onChange={e => setDescription(e.target.value)}/>
-                        <label htmlFor="">Price</label>
-                        <input type="text" value={price} onChange={e => setPrice(e.target.value)}/>
-                        <button type="submit" className="mt-4">Save</button>
-                    </div>
-                </div>
-            </form>
-            
+            <UserTab isAdmin={data.admin} />
+            <div className="max-w-lg mx-auto text-cetner">
+                <Link href={'/menu-items'} className="">
+                    <span className="underline underline-offset-4 hover:decoration-primary hover:text-primary ">Show all menu items</span>
+                </Link>
+            </div>
+            <MenuItemForm menuItem={null} onSubmit={handleMenuItemSubmit} />
+                       
             
         </section>
      );

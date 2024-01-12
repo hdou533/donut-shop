@@ -44,7 +44,7 @@ const EditableImage = ({ link, setLink }) => {
             
             {!link && (
                 <div className="bg-gray-200 p-4 text-gray-700 rounded-lg w-[140px] h-[140px] text-cetner">
-                    No Image.
+                    <Image src={'https://hdou533-donuts-shop.s3.amazonaws.com/k5slr8jos8f.png'} alt='image placeholder' width={140} height={140} className='rounded-lg' />
                 </div>
             )}
         
