@@ -1,27 +1,26 @@
 'use client'
 import Image from "next/image";
 import { useState } from "react";
-import {signIn, useSession} from 'next-auth/react'
-import { redirect } from "next/navigation";
+import {signIn } from 'next-auth/react'
+
 
 
 
 const LoginPage = () => {
-    const session = useSession()
+    
+    
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loginOnPrgress, setLoginOnProgress] = useState(false)
 
    
-    if (session.data?.user) {
-        return redirect('/profile')
-    }
+    
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
         setLoginOnProgress(true)
-        await signIn('credentials', {email, password, })
+        await signIn('credentials', {email, password, callbackUrl: '/profile'})
         setLoginOnProgress(false)
     }
 
