@@ -19,7 +19,7 @@ const NewItemPage = () => {
 
     const handleMenuItemSubmit = (e, data) => {
         e.preventDefault()
-
+        
         const createPromise = new Promise(async (resolve, reject) => {
             
             const response = await fetch('/api/menu-items', {

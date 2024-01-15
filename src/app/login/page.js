@@ -1,20 +1,25 @@
 'use client'
 import Image from "next/image";
-import { useState } from "react";
-import {signIn } from 'next-auth/react'
+import { useEffect, useState } from "react";
+import {signIn, useSession } from 'next-auth/react'
+import { redirect } from "next/navigation";
 
 
 
 
 const LoginPage = () => {
     
-    
+    const {status} = useSession()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loginOnPrgress, setLoginOnProgress] = useState(false)
 
-   
+    useEffect(() => {
+        if (status === 'authenticated') {
+            return redirect('/profile')
+        }
+   },[status])
     
 
     const handleFormSubmit = async (e) => {
@@ -23,6 +28,8 @@ const LoginPage = () => {
         await signIn('credentials', {email, password, callbackUrl: '/profile'})
         setLoginOnProgress(false)
     }
+
+    
 
     return ( 
         <section className="my-8">

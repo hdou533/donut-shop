@@ -32,7 +32,7 @@ const MenuItemsPage = () => {
     
 
     return (
-        <section className="mt-8 max-w-2xl mx-auto">
+        <section className="my-8 max-w-2xl mx-auto">
             <UserTab isAdmin={true} />
             <div className="mt-8">
                 <Link

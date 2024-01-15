@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Hero />
       <HomeMenu />
-      <section className='text-center my-16'>
+      <section id='about' className='text-center my-16'>
         <SectionHeader subHeader={'Our story'} mainHeader={'About us'} />
         <div className='max-w-2xl mx-auto my-8 text-gray-500 flex flex-col gap-8'>
           <p>Welcome to CrispyCrown Donut, where passion for flavors meets a commitment to excellence. Established in 2020, we are more than just a donut shop. We&apos;re creators of indulgent experiences, crafting each donut with precision and love. Our journey began with a simple belief: that every moment deserves to be celebrated with a touch of sweetness. Our team, a blend of culinary enthusiasts and industry experts, strives to deliver not just a product but a symphony of taste and delight. Join us as we continue to develope new products and create memories, one exquisite bite at a time.</p>
@@ -17,7 +17,7 @@ export default function Home() {
        
       </section>
 
-      <section className='text-center my-16'>
+      <section id='contact' className='text-center my-16'>
         <SectionHeader subHeader={'Don\'t hesitate'} mainHeader={'Contact us'} />
         <div className="text-4xl my-8 text-gray-500 italic">
           <a  href="tel:+123 456 789">+123 456 789</a>
