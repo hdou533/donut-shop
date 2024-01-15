@@ -17,9 +17,9 @@ export default function RootLayout({ children }) {
   let year = newDate.getFullYear();
 
   return (
-    <html lang="en">
+    <html lang="en" className='scroll-smooth'>
       <body className={roboto.className}>
-        <main className='max-w-6xl mx-auto p-4'>
+        <main className='max-w-5xl mx-auto p-4'>
           <AppProvider>
             <Toaster />
             <Header />

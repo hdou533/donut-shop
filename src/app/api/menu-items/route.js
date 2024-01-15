@@ -5,7 +5,7 @@ export async function POST(req) {
     mongoose.connect(process.env.DATABASE_ACCESS)
 
     const data = await req.json();
-  
+    console.log(data)
     const menuItemDoc = await MenuItem.create(data);
     return Response.json(menuItemDoc);
   

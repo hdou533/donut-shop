@@ -16,9 +16,11 @@ const MenuItemForm = ({ onSubmit, menuItem }) => {
         fetch('/api/categories').then(res => {
             res.json().then(categories => {
                 setCategories(categories)
+                
             })
         })
-    },[])
+    }, [])
+    
 
     return (
         <form className="mt-8" onSubmit={e => {
@@ -40,7 +42,8 @@ const MenuItemForm = ({ onSubmit, menuItem }) => {
                         rows={4}
                         onChange={e => setDescription(e.target.value)}></textarea>
                     <label htmlFor="">Category</label>
-                    <select value={category} onChange={e=>setCategory(e.target.value)} className='w-full text-wrap'>
+                    <select value={category} onChange={e => setCategory(e.target.value)} className='w-full text-wrap'>
+                        <option value="" disabled hidden></option>
                         {categories?.length > 0 && categories.map(c => (
                             <option key={c._id} value={c._id}>{c.name}</option>
                         ))}
