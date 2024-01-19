@@ -22,8 +22,9 @@ const MenuItem = (menuItem) => {
                 <p className='italic text-md'><span className="font-semibold">${price}</span> Per Dozen </p>
             </div>
             
+        
             <button
-                className=" bg-primary rounded-full text-white px-6 py-2"
+                className=" bg-primary rounded-full text-white px-6 py-2 hover:-translate-y-0.5"
                 onClick={() => {
                     
                     addToCart(menuItem)
@@ -32,6 +33,8 @@ const MenuItem = (menuItem) => {
             >
                 Add to cart
             </button>
+      
+            
         </div>
      );
 }
