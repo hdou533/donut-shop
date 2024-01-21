@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useProfile } from '@/components/UseProfile';
 import CartProduct from '@/components/menu/CartProduct';
 import AddressInputs from '@/components/layout/AddressInputs';
+import toast from 'react-hot-toast';
 
 
 const CartPage = () => {
@@ -14,11 +15,19 @@ const CartPage = () => {
 
     const {data:profileData} = useProfile()
 
-    let total = 0
+    let subtotal = 0
     for (const p of cartProducts) {
         
-        total += cartProductPrice(p)
+        subtotal += cartProductPrice(p)
     }
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            if (window.location.href.includes('canceled=1')) {
+                toast.error('Payment failed')
+            }
+        }
+    },[])
 
     useEffect(() => {
         if (profileData?.city) {
@@ -38,34 +47,82 @@ const CartPage = () => {
         setAddress(prevAddress => ({...prevAddress, [propName]:value}))
     }
 
+    const proceedToCheckout = async (e) => {
+        e.preventDefault()
+        const promise = new Promise(async (res, rej) => {
+            const response = await fetch('/api/checkout', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    address,
+                    cartProducts
+                })
+            })
+            if (response.ok) {
+                res()
+                const link = await response.json()
+                window.location = link
+            } else {
+                rej()
+            }
+        })
+
+        toast.promise(promise, {
+            loading: 'Preparing your order...',
+            success: 'Redirecting to payment...',
+            error: 'Something went wrong...Please try again later'
+        })
+       
+
+        
+    }
+    if (cartProducts?.length === 0) {
+        return (
+            <section className='mt-8 mx-auto'>
+                <div className='text-center my-8'>
+                    <SectionHeader mainHeader={'Cart'} />
+                    <div className='my-4'>Your shopping cart is empty.</div>
+                </div>
+                
+            </section>
+        )
+    }
+    // console.log(cartProducts)
     return ( 
-        <section className="my-8">
+        <section className="my-8 mx-auto">
             <div className='text-center my-8'>
                 <SectionHeader mainHeader={'Cart'}/>
             </div>
             <div className="grid grid-cols-2 gap-8">
                 <div>
-                    {cartProducts?.length === 0 && (
+                    {/* {cartProducts?.length === 0 && (
                         <div>Your shopping cart is empty.</div>
-                    )}
+                    )} */}
                     {cartProducts?.length > 0 && (
                         cartProducts.map((product, index) => (
                             <CartProduct key={index} product={product} onRemove={removeCartProduct} index={index} />
                         ))
                     )}
                     <div className='text-right pr-10'>
-                        Total: <span className='text-lg font-semibold pl-2'>${total}</span>
+                        Subtotal: <span className='text-lg font-semibold pl-2'>${subtotal}</span>
+                    </div>
+                    <div className='text-right pr-10'>
+                        Delivery: <span className='text-lg font-semibold pl-2'>${5}</span>
+                    </div>
+                    <div className='text-right pr-10'>
+                        Total: <span className='text-lg font-semibold pl-2'>${subtotal + 5}</span>
                     </div>
                 </div>
                 <div className='bg-gray-100 p-4 rounded-lg'>
                     <h2>Checkout</h2>
-                    <form action="">
+                    <form onSubmit={proceedToCheckout}>
                         <AddressInputs
                             addressProps={address}
                             setAddressProp={handleAddressChange}
                         />
+                        <button type='submit' className='mt-4'>Pay ${subtotal + 5}</button>
                     </form>
-                    <button type='submit' className='mt-4'>Pay ${total}</button>
+                   
                 </div>
             </div>
         </section>

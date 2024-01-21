@@ -55,7 +55,7 @@ const AppProvider = ({ children }) => {
 
     const clearCart = () => {
         setCartProducts([]);
-        saveCartProductsToLocalStorage([]);
+        saveToLocalStorage([]);
       }
 
     return ( 
