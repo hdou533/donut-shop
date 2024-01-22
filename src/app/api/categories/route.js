@@ -16,8 +16,7 @@ export async function PUT(req) {
 
     const { name, _id } = await req.json()
     
-    console.log(_id)
-
+    
     await Category.updateOne({_id}, {name})
 
     return Response.json(true)
