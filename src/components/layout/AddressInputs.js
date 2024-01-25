@@ -1,8 +1,11 @@
 
-const AddressInputs = ({addressProps, setAddressProp}, disabled=false) => {
-    const {phone, streetAddress, postalCode, city, country} = addressProps
+const AddressInputs = ({ addressProps, setAddressProp }, disabled = false) => {
+    
+    const {userEmail, phone, streetAddress, postalCode, city, country} = addressProps
     return ( 
         <>
+            <label htmlFor="email">Email Address</label>
+            <input type="email" name="email" disabled={disabled} placeholder='Email Address' value={userEmail} onChange={e => setAddressProp('userEmail', e.target.value)}/>
             <label htmlFor="tel">Phone Number</label>
             <input type="tel" name="tel" disabled={disabled} placeholder='Phone number' value={phone} onChange={e => setAddressProp('phone', e.target.value)}/>
             

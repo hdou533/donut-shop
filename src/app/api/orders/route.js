@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/libs/authOptions';
-import { UserInfo } from '@/app/models/UserInfo';
+
 import { Order } from "@/app/models/Order";
 import moment from "moment-timezone";
+import { isAdmin } from '@/app/api/auth/[...nextauth]/route';
+
 
 
 export async function GET(req){
@@ -14,7 +16,7 @@ export async function GET(req){
 
     const userEmail = await session?.user?.email
 
-    let isAdmin = false
+    // let isAdmin = false
 
     const url = new URL(req.url)
     const _id = url.searchParams.get('_id')
@@ -25,21 +27,24 @@ export async function GET(req){
     }
 
 
-    if (userEmail) {
-        const userInfo = await UserInfo.findOne({email:userEmail})
-        if (userInfo) {
-            isAdmin = userInfo.isAdmin
+    // if (userEmail) {
+    //     const userInfo = await UserInfo.findOne({email:userEmail})
+    //     if (userInfo) {
+    //         isAdmin = userInfo.isAdmin
 
-        }
-    }
+    //     }
+    // }
 
-    if (isAdmin) {
+    const admin = await isAdmin()
+    
+
+    if (admin) {
         const allOrders = await Order.find()
         const allOrdersLocalTime = allOrders.map(order => {
             const localDate = moment(order.createdAt).tz('Pacific/Auckland').format('YYYY-MM-DD HH:mm:ss')
-            console.log(localDate)
+            
             return {
-                ...order,
+                ...order._doc,
                 createdAt:localDate,
             }
         })

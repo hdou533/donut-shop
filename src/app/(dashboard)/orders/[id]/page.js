@@ -33,7 +33,7 @@ const OrderPage = () => {
                 })
             })
         }
-    }, [])
+    }, [id, clearCart])
 
     let subtotal = 0
     if (order?.cartProducts) {
@@ -44,7 +44,7 @@ const OrderPage = () => {
     
     return ( 
         <section className='max-w-2xl mx-auto mt-8'>
-            <Link href={'/orders'} className=' '>
+            <Link href={'/orders'} className=''>
                 <div className='text-primary italic flex gap-2 hover:underline hover:underline-offset-4'>
                     <Right /> 
                     <span>Back to Orders</span>
@@ -52,7 +52,7 @@ const OrderPage = () => {
                 </div>
                 
             </Link>
-            <div className='text-center'>
+            <div className='text-center mt-4'>
                 <SectionHeader mainHeader='Your order' />
                 <div className='my-8'>
                     <p>Thanks for your order</p>
@@ -62,7 +62,7 @@ const OrderPage = () => {
             
 
                 {order && (
-                    <div className='grid grid-cols-2 gap-16 my-8'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-16 my-8'>
                         <div>
                             {order.cartProducts.map(product => (
                                 <CartProduct product={product} key={product._id}/>

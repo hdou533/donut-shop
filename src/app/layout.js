@@ -8,7 +8,7 @@ import { Toaster } from 'react-hot-toast';
 const roboto = Roboto({ subsets: ['latin'], weight: ['400','500','700']})
 
 export const metadata = {
-  title: 'CrispyCrown Donuts',
+  title: 'CrispyCrown Donuts ',
   description: 'Discover a world of irresistible flavors with DoughJoy Delights, your online haven for handcrafted, gourmet donuts made with love and the finest ingredients.',
 }
 

@@ -28,7 +28,7 @@ const MenuItemForm = ({ onSubmit, menuItem }) => {
                 name, image, description, price, category
             })
         }}>
-            <div className="flex gap-8 justify-between">
+            <div className="flex flex-col sm:flex-row gap-8 justify-between">
                 <div className="flex flex-col gap-4 items-center mt-2">
                     <EditableImage link={image} setLink={setImage} />
                 </div>

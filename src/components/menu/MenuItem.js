@@ -18,7 +18,7 @@ const MenuItem = (menuItem) => {
             </div>
             <div className="w-full">
                 <h4 className='text-primary font-semibold text-xl'>{name}</h4>
-                <p className="my-2 text-gray-500 w-full h-16 overflow-y-scroll overscroll-contain no-scrollbar">{description }</p>
+                <p className="my-2 text-gray-500 w-full h-12 overflow-y-scroll overscroll-contain no-scrollbar">{description }</p>
                 <p className='italic text-md'><span className="font-semibold">${price}</span> Per Dozen </p>
             </div>
             

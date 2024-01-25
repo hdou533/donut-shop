@@ -24,7 +24,7 @@ const AppProvider = ({ children }) => {
         if (localStorage && localStorage.getItem('cart')) {
            setCartProducts(JSON.parse(localStorage.getItem('cart')))
        }
-    }, [])
+    }, [localStorage])
     
     const saveToLocalStorage = (cartProducts) => {
         if (localStorage) {

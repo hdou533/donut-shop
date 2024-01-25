@@ -93,7 +93,7 @@ const CartPage = () => {
             <div className='text-center my-8'>
                 <SectionHeader mainHeader={'Cart'}/>
             </div>
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div>
                     {/* {cartProducts?.length === 0 && (
                         <div>Your shopping cart is empty.</div>

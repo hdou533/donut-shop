@@ -5,12 +5,16 @@ import UserTab from '@/components/layout/UserTab';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { dateTimeReadable } from '@/libs/datetime';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+import { Show } from './../../../components/icons/Show';
 
 
 
 
 const OrdersPage = () => {
 
+    const {status} = useSession()
     const [orders, setOrders] = useState()
     const [loadingOrders, setLoadingOrders] = useState(false)
     const {loading, data:profileData} = useProfile()
@@ -30,15 +34,23 @@ const OrdersPage = () => {
         })
         
     }
+
+    if (status === 'unauthenticated') {
+        
+        return redirect('/login')
+    }
+    
+    if (status === 'loading' || loadingOrders) {
+        return 'Loading orders...'
+    }
+    
     return ( 
         <section className='mt-8 max-w-2xl mx-auto'>
             <div className='text-center'>
                 <UserTab isAdmin={profileData.admin}/> 
                 
             </div>
-            {loadingOrders && (
-                <div>Loading orders...</div>
-            )}
+            
             <div className='mt-8 flex flex-col'>
                 {orders && orders.map(order => (
                     <div
@@ -46,31 +58,31 @@ const OrdersPage = () => {
                         key={order._id}
                         className='bg-gray-100 mb-2 p-4 rounded-lg grid grid-cols-5 items-center gap-8'
                     >
-                        <div className='flex flex-col gap-2'>
-                            <div>
-                                <span className={(order.paid ? 'bg-green-500' : 
-                                    'bg-red-500') + ' font-semibold text-white rounded-lg py-1 px-2'}>
-                                    {order.paid ? 'Paid' : 'Unpaid'}
-                                </span>
-                            </div>      
-                           
-                        </div>
-                        <div className='text-sm col-span-3'>
-                            <div className='flex justify-between items-start'>
-                                <span>{order.userEmail}</span>
+                        <div className='col-span-4'>
+                            <div className="flex gap-8 items-center">
+                                <div className={(order.paid ? 'bg-green-500' : 
+                                        'bg-red-500') + ' w-16 font-semibold text-white text-xs rounded-lg p-1 flex items-center justify-center'}>
+                                        {order.paid ? 'Paid' : 'Unpaid'}
+                                </div>
                                 <span className='text-gray-700 text-xs'>{dateTimeReadable(order.createdAt)}</span>
                             </div>
-                        
-                            <div className='overflow-wrap text-gray-700'>
-                                {order.cartProducts.map(p => p.name).join(', ')}
-                            </div>
+                            
+                            <div className='mt-2 text-sm'>
+                                
+                                <span className='italic'>{order.userEmail}</span>
+              
+                                <div className='w-full overflow-wrap text-gray-700'>
+                                    {order?.cartProducts?.map(p => p.name).join(', ')}
+                                </div>
                         </div>
+                        </div>
+                        
                         
                         <Link
                             href={`/orders/${order._id}`}
-                            className='border rounded-lg font-semibold p-2'
+                            className='col-span-1 border-none font-semibold p-2 flex justify-center'
                         >
-                            Show Order
+                            <Show />
                         </Link>
                         
                     </div>
