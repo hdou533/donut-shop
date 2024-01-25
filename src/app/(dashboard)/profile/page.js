@@ -80,7 +80,7 @@ const ProfilePage = () => {
                 onClick={() => {
                     signOut()
                     router.push('/')
-                }} className='border-none text-gray-500 underline text-left pl-0 italic'>
+                }} className='border-none text-gray-500 underline text-left italic'>
                 Logout
             </button>
             

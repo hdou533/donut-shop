@@ -4,7 +4,8 @@ import { authOptions } from '@/libs/authOptions';
 
 import { Order } from "@/app/models/Order";
 import moment from "moment-timezone";
-import { isAdmin } from '@/app/api/auth/[...nextauth]/route';
+import { isAdmin } from "@/libs/isAdmin";
+
 
 
 
