@@ -26,7 +26,7 @@ const EditMenuItemPage = () => {
                 setmenuItem(item)
             })
         })
-    },[id])
+    },[])
 
     const handleMenuItemSubmit = (e,data) => {
         e.preventDefault()
