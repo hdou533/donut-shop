@@ -43,7 +43,7 @@ const UsersPage = () => {
                                 <span className="text-gray-500 text-wrap">{user.email}</span>
                             </div>
                             
-                            <span class="col-span-1 flex justify-center">
+                            <span className="col-span-1 flex justify-center">
                                 <Link href={`/users/${user._id}`} className="text-gray-700 p-0">
                                     <Edit />
                                 </Link>
