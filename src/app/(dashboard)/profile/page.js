@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import UserForm from '@/components/layout/UserForm';
 import { redirect } from 'next/navigation';
-
+import {signOut} from "next-auth/react";
 
 
 const ProfilePage = () => {
@@ -76,7 +76,13 @@ const ProfilePage = () => {
         
             <UserTab isAdmin={admin} />
             <UserForm user={user} onSave={handleProfileUpdate} />
-            
+            <button
+                onClick={() => {
+                    signOut()
+                    router.push('/')
+                }} className='border-none text-gray-500 underline text-left italic'>
+                Logout
+            </button>
             
         </section>
      );

@@ -4,6 +4,7 @@ import UserTab from "@/components/layout/UserTab";
 import { useProfile } from '@/components/UseProfile';
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Edit } from './../../../components/icons/Edit';
 
 
 
@@ -36,12 +37,15 @@ const UsersPage = () => {
                 
                     
                     {users?.length > 0 && users.map(user => (
-                        <div key={user._id} className="bg-gray-100 px-4 py-2 rounded-lg grid grid-cols-3 gap-4 items-center">
-                            <span className="font-semibold">{user.name}</span>
-                            <span className="text-gray-500">{user.email}</span>
-                            <span class="place-self-end">
-                                <Link href={`/users/${user._id}`} className="button bg-green-500 text-white">
-                                    Edit
+                        <div key={user._id} className="bg-gray-100 px-4 py-2 rounded-lg grid grid-cols-5 gap-4 items-center">
+                            <div className="col-span-4 flex flex-col sm:flex-row gap-2 sm:gap-8">
+                                <span className="font-semibold  text-wrap">{user.name}</span>
+                                <span className="text-gray-500 text-wrap">{user.email}</span>
+                            </div>
+                            
+                            <span class="col-span-1 flex justify-center">
+                                <Link href={`/users/${user._id}`} className="text-gray-700 p-0">
+                                    <Edit />
                                 </Link>
                             </span>
                             

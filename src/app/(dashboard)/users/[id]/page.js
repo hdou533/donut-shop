@@ -21,7 +21,7 @@ const EditUserPage = () => {
                 setUser(user)
             })
         })
-    }, [])
+    }, [id])
     
     const handleSaveProfile = async (e, data) => {
         e.preventDefault()
@@ -47,7 +47,7 @@ const EditUserPage = () => {
         })
     }
 
-    console.log(user)
+    
     if (loading) {
         return 'Loading user profile'
     }

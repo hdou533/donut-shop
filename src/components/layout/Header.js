@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 import { CartContext } from '../AppContext';
 import ShoppingCart from './../icons/ShoppingCart';
-
+import BurgerMenu from './BurgerMenu';
+import { UserIcon} from '@/components/icons/User'
 
 const Header = () => {
     const session = useSession()
@@ -26,13 +27,18 @@ const Header = () => {
     return (
         <>
             <header className='flex items-center justify-between py-4'>
+                <div className='sm:hidden'>
+                    <BurgerMenu />
+                </div>
                 <div className='flex gap-8'>
-                    <Link href={'/'} className='text-primary text-2xl font-semibold flex flex-col items-end'>
-                        {/* <span>CrispyCrown</span>
-                        <span>Donuts</span> */}
-                        CC Donuts
+                    <Link href={'/'} className='text-primary text-2xl font-semibold flex flex-col'>
+                        <span>CrispyCrown</span>
+                        
+                        
                     </Link>
-                    <nav className='flex gap-8 items-center font-semibold text-gray-500'>
+
+                    
+                    <nav className='hidden sm:flex gap-8 items-center font-semibold text-gray-500'>
                         <Link href={'/'}>Home</Link>
                         <Link href={'/menu'}>Menu</Link>
                         <Link href={'/#about'}>About</Link>
@@ -42,8 +48,15 @@ const Header = () => {
                     </nav>
                 </div>
                 
-                <div className='flex gap-4 items-center font-semibold'>
+                
+                <div className='flex gap-2 items-center font-semibold'>
+                    <Link href={'/profile'}>
+                        <UserIcon/>
+                    </Link>
                     
+                    
+                    
+                    {/* <div className='hidden sm:flex items-center gap-2'>
                     {session.data && (
                         <>
                             <>
@@ -66,15 +79,23 @@ const Header = () => {
                         
                         </>    
                     )}
+                    </div> */}
                     
-                    {cartProducts?.length > 0 && (
+                    
+                    
+                    {/* {cartProducts?.length > 0 && ( */}
                         <Link href={'/cart'} className='relative'>
-                            <ShoppingCart />
-                            <span className='absolute -top-2 -right-2 w-5 h-5 flex justify-center items-center text-sm rounded-full bg-primary text-white'>
-                                {cartProducts.length}
-                            </span>
+                        <ShoppingCart />
+                        {
+                            cartProducts.length > 0 && (
+                                <span className='absolute -top-2 -right-2 w-5 h-5 flex justify-center items-center text-sm rounded-full bg-primary text-white'>
+                                    {cartProducts.length}
+                                </span>
+                            )
+                        }
+                           
                         </Link>
-                    )}
+                    {/* )} */}
                     
                 </div>
             </header>

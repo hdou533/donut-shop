@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 const UserTab = ({ isAdmin }) => {
     const path = usePathname()
     return (
-        <div className="flex justify-center gap-2 tabs my-8">
+        <div className="w-full flex overflow-x-auto items-center sm:justify-center gap-2 tabs py-4 mt-8">
             <Link
                 className={path === '/profile' ? 'active' : ''}
                 href={'/profile'}>
@@ -23,7 +23,7 @@ const UserTab = ({ isAdmin }) => {
                     href={'/menu-items'}
                     className={path.includes('/menu-items') ? 'active' : ''}
                 >
-                    Menu Items
+                    <span>Menu&nbsp;Items</span>
                 </Link>
                 <Link
                     href={'/users'}
@@ -31,8 +31,16 @@ const UserTab = ({ isAdmin }) => {
                 >
                     Users
                 </Link>
+                
             </>
             )}
+           
+                <Link
+                    href={'/orders'}
+                    className={path === '/orders' ? 'active' : ''}
+                >
+                    Orders
+                </Link>
         </div>
     );
 }

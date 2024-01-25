@@ -7,31 +7,38 @@ import toast from 'react-hot-toast';
 const CartProduct = ({product, onRemove,index}) => {
     return ( 
         <div
-            className='grid grid-cols-5 gap-4 items-start mb-2 border-b py-2'
+            // className='grid grid-cols-5 gap-4 items-start mb-2 border-b py-2'
+            className='flex items-start justify-between mb-2 border-b py-2'
             key={product._id}
         >
-            <div className='w-16'>
-                <Image src={product.image} width={128} height={128} alt='' />
+            <div className='flex gap-4 w-[360px]'>
+                <div className='relative w-16 h-16 rounded-lg'>
+                    <Image src={product.image} fill alt='' style={{"objectFit": "cover"}} />
+                </div>
+                <div className='col-span-2'>
+                    <h3 className='font-semibold'>{product.name}</h3>
+                    <p className='text-sm text-gray-500'>1 Dozen</p>
+                </div>
             </div>
-            <div className='col-span-2'>
-                <h3 className='font-semibold'>{product.name}</h3>
-                <p className='text-sm text-gray-500'>Size: 1 Dozen</p>
-            </div>
+            
             <div>
                 <h3 className='font-semibold'>${product.price}</h3>
             </div>
-            <div className='relative -top-1'>
-                <button
-                    type='button'
-                    onClick={() => {
-                        onRemove(index)
-                        toast.success('Product removed')
-                    }}
-                    className='text-primary border-none'
-                >
-                    <Trash />
-                </button>
-            </div>
+            {!!onRemove && (
+                <div className='relative -top-2'>
+                    <button
+                        type='button'
+                        onClick={() => {
+                            onRemove(index)
+                            toast.success('Product removed')
+                        }}
+                        className='text-primary border-none'
+                    >
+                        <Trash />
+                    </button>
+                </div>
+            )}
+            
         </div>
      );
 }

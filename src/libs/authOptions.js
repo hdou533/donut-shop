@@ -27,7 +27,7 @@ export const authOptions = {
           password: { label: "Password", type: "password" },
         },
         async authorize(credentials, req) {
-          console.log(credentials)
+          
           const email = credentials?.email
           const password = credentials?.password
           
@@ -36,9 +36,7 @@ export const authOptions = {
           const user = await User.findOne({email})
   
           const passwordOk = user && bcrypt.compareSync(password, user.password)
-          console.log(password)
-          console.log(user.password)
-          console.log(passwordOk)
+      
           if (passwordOk) {
             
             return user

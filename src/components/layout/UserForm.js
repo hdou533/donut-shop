@@ -21,7 +21,7 @@ const UserForm = ({user, onSave}) => {
    
 
     return ( 
-        <div className='flex gap-4 my-12'>
+        <div className='flex flex-col sm:flex-row gap-4 my-12'>
                 <div className='flex flex-col gap-4 items-center bg-gray-100 p-4'>
                     <EditableImage link={image} setLink={setImage} />
 

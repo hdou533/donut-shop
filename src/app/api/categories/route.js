@@ -1,13 +1,18 @@
 import { Category } from "@/app/models/Category"
 import mongoose from "mongoose"
 
+import { isAdmin } from '@/libs/isAdmin';
 
 export async function POST(req) {
     mongoose.connect(process.env.DATABASE_ACCESS)
     const {name} = await req.json()
+    if (await isAdmin()) {
+        const categoryDoc = await Category.create({ name })
+        return Response.json(categoryDoc)
+    } else {
+        return Response.json({})
+    }
     
-    const categoryDoc = await Category.create({ name })
-    return Response.json(categoryDoc)
 
 }
 
@@ -16,25 +21,27 @@ export async function PUT(req) {
 
     const { name, _id } = await req.json()
     
-    console.log(_id)
-
-    await Category.updateOne({_id}, {name})
-
+    if (await isAdmin()) {
+        await Category.updateOne({ _id }, { name })
+    }
     return Response.json(true)
 }
 
 export async function GET() {
     mongoose.connect(process.env.DATABASE_ACCESS)
-    return Response.json(
-        await Category.find()
-    )
+
+    
+    return Response.json(await Category.find())
+    
 }
 
 export async function DELETE(req) {
     mongoose.connect(process.env.DATABASE_ACCESS)
     const url = new URL(req.url)
     const _id = url.searchParams.get('_id')
-    await Category.deleteOne({_id})
+    if (await isAdmin()) {
+        await Category.deleteOne({ _id })
+    }
     return Response.json(true)
 
 

@@ -12,10 +12,10 @@ export async function POST(req) {
     
     const { cartProducts, address } = await req.json()
     const session = await getServerSession(authOptions)
-    const useremail = session?.user?.email
-
+    const userEmail = session?.user?.email
+    
     const orderInfo = await Order.create({
-        useremail,
+        userEmail,
         ...address,
         cartProducts,
         paid: false,
@@ -47,10 +47,13 @@ export async function POST(req) {
     const stripeSession = await stripe.checkout.sessions.create({
         line_items: stripeLineItems,
         mode: 'payment',
-        customer_email: useremail,
+        customer_email: userEmail,
         success_url: process.env.NEXTAUTH_URL + '/orders/' + orderInfo._id.toString() + '?clear-cart=1',
         cancel_url: process.env.NEXTAUTH_URL + '/cart?canceled=1',
-        metadata: { orderId: orderInfo._id.toString()},
+        metadata: { orderId: orderInfo._id.toString() },
+        payment_intent_data: {
+            metadata:{orderId:orderInfo._id.toString()},
+          },
         shipping_options: [
             {
                 shipping_rate_data: {

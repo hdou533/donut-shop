@@ -24,7 +24,7 @@ const AppProvider = ({ children }) => {
         if (localStorage && localStorage.getItem('cart')) {
            setCartProducts(JSON.parse(localStorage.getItem('cart')))
        }
-    }, [])
+    }, [localStorage])
     
     const saveToLocalStorage = (cartProducts) => {
         if (localStorage) {
@@ -35,7 +35,7 @@ const AppProvider = ({ children }) => {
     const addToCart = (product) => {
         setCartProducts(prevProduct => {
             const newProducts = [...prevProduct, product]
-            console.log(newProducts)
+            
             saveToLocalStorage(newProducts)
             return newProducts
         })
@@ -43,10 +43,10 @@ const AppProvider = ({ children }) => {
     }
 
     const removeCartProduct = (indexToDelete) => {
-        console.log(indexToDelete)
+        
         setCartProducts(prevCartProducts => {
             const newCartProducts = prevCartProducts.filter((prev, index) => index !== indexToDelete)
-            console.log(newCartProducts)
+            
             saveToLocalStorage(newCartProducts)
             return newCartProducts
         })

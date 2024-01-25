@@ -26,7 +26,7 @@ const EditMenuItemPage = () => {
                 setmenuItem(item)
             })
         })
-    },[])
+    },[id])
 
     const handleMenuItemSubmit = (e,data) => {
         e.preventDefault()
@@ -92,7 +92,7 @@ const EditMenuItemPage = () => {
     return ( 
         <section className='max-w-xl mx-auto min-h-60 mb-8'>
             <UserTab isAdmin={profileData.admin} />
-            <div className="max-w-lg mx-auto text-cetner">
+            <div className="max-w-lg mx-auto text-cetner mt-4">
                 <Link href={'/menu-items'} className="">
                     <span className="underline underline-offset-4 hover:decoration-primary hover:text-primary ">Show all menu items</span>
                 </Link>
