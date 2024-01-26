@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import UserForm from '@/components/layout/UserForm';
 import { redirect } from 'next/navigation';
 import {signOut} from "next-auth/react";
+import { Logout } from '@/components/icons/Logout';
 
 
 const ProfilePage = () => {
@@ -80,8 +81,9 @@ const ProfilePage = () => {
                 onClick={() => {
                     signOut()
                     router.push('/')
-                }} className='border-none text-gray-500 underline text-left italic'>
-                Logout
+                }} className='mb-8 flex gap-2 items-end text-gray-600 border-none text-left italic '>
+                
+                <Logout /> Logout 
             </button>
             
         </section>

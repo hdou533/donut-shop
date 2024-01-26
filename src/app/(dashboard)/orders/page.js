@@ -51,7 +51,7 @@ const OrdersPage = () => {
                 
             </div>
             
-            <div className='mt-8 flex flex-col'>
+            <div className='my-8 flex flex-col'>
                 {orders && orders.map(order => (
                     <div
                         

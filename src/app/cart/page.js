@@ -14,7 +14,7 @@ const CartPage = () => {
     const [address, setAddress] = useState({})
 
     const {data:profileData} = useProfile()
-
+    
     let subtotal = 0
     for (const p of cartProducts) {
         
@@ -31,8 +31,9 @@ const CartPage = () => {
 
     useEffect(() => {
         if (profileData?.city) {
-            const { phone, streetAddress, city, postalCode, country } = profileData
+            const { email, phone, streetAddress, city, postalCode, country } = profileData
             const addressFormProfile = {
+                email,
                 phone,
                 streetAddress,
                 city,

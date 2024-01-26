@@ -26,8 +26,11 @@ const OrderPage = () => {
         if (id) {
             
             fetch(`/api/orders?_id=${id}`).then(res => {
-                res.json().then(orderData => {
-                    
+                res.json().then(data => {
+                    const orderData = {
+                        ...data,
+                        email: data.userEmail
+                    }
                     setOrder(orderData)
                     
                 })
