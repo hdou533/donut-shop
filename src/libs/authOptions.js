@@ -29,9 +29,9 @@ export const authOptions = {
   
           mongoose.connect(process.env.DATABASE_ACCESS);
           const user = await User.findOne({ email });
-          console.log(user)
+         
           const passwordOk = user && bcrypt.compareSync(password, user.password);
-          console.log(passwordOk)
+          
           if (passwordOk) {
             return user;
           }
