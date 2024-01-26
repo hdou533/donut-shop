@@ -13,7 +13,7 @@ const CartPage = () => {
     const { cartProducts, removeCartProduct } = useContext(CartContext)
     const [address, setAddress] = useState({})
 
-    const {data:profileData} = useProfile()
+    const { data: profileData } = useProfile()
     
     let subtotal = 0
     for (const p of cartProducts) {
@@ -30,8 +30,9 @@ const CartPage = () => {
     },[])
 
     useEffect(() => {
+        
         if (profileData?.city) {
-            const { email, phone, streetAddress, city, postalCode, country } = profileData
+            const { phone, streetAddress, city, postalCode, country } = profileData
             const addressFormProfile = {
                 email,
                 phone,
@@ -41,8 +42,8 @@ const CartPage = () => {
                 country
             }
             setAddress(addressFormProfile)
-        }
-    },[profileData])
+        } 
+    },[])
 
     const handleAddressChange = (propName, value) => {
         setAddress(prevAddress => ({...prevAddress, [propName]:value}))
@@ -88,7 +89,7 @@ const CartPage = () => {
             </section>
         )
     }
-    // console.log(cartProducts)
+   
     return ( 
         <section className="my-8 mx-auto">
             <div className='text-center my-8'>
@@ -118,6 +119,7 @@ const CartPage = () => {
                     <h2>Checkout</h2>
                     <form onSubmit={proceedToCheckout}>
                         <AddressInputs
+                            email={profileData.email}
                             addressProps={address}
                             setAddressProp={handleAddressChange}
                         />

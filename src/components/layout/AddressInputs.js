@@ -1,7 +1,8 @@
 
-const AddressInputs = ({ addressProps, setAddressProp, disabled = false }) => {
+const AddressInputs = ({ email, addressProps, setAddressProp, disabled = false }) => {
     
-    const {email, phone, streetAddress, postalCode, city, country} = addressProps
+    const { phone, streetAddress, postalCode, city, country } = addressProps
+    
     return ( 
         <>
             <label htmlFor="email">Email Address</label>

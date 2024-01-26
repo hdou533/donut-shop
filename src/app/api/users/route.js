@@ -7,7 +7,7 @@ export async function GET() {
     mongoose.connect(process.env.DATABASE_ACCESS)
 
     const admin = await isAdmin()
-    console.log(admin)
+    
     if (admin) {
         const users = await User.find()
         return Response.json(users)
