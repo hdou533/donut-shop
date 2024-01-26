@@ -9,9 +9,7 @@ import Link from "next/link";
 
 
 const LoginPage = () => {
-    
-    const { data: session } = useSession()
-    
+        
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loginInProgress, setLoginInProgress] = useState(false)

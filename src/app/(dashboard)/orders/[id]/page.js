@@ -8,11 +8,12 @@ import AddressInputs from '@/components/layout/AddressInputs';
 import CartProduct from '@/components/menu/CartProduct';
 import Link from 'next/link';
 import { Right } from './../../../../components/icons/Right';
+import { useProfile } from '@/components/UseProfile';
 
 const OrderPage = () => {
     const { clearCart } = useContext(CartContext)
     const [order, setOrder] = useState()
-    
+    const { data: profileData } = useProfile()
     const { id } = useParams()
     
     
@@ -84,6 +85,7 @@ const OrderPage = () => {
                             <AddressInputs
                                 disabled={true}
                                 addressProps={order}
+                                email={profileData.email}
                             />
                         </div>
                         
