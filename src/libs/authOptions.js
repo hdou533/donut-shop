@@ -19,31 +19,28 @@ export const authOptions = {
         name: 'Credentials',
         id: 'credentials',
         credentials: {
-          email: {
-            label: "Email",
-            type: "email",
-            placeholder: "test@example.com",
-          },
+          username: { label: "Email", type: "email", placeholder: "test@example.com" },
           password: { label: "Password", type: "password" },
         },
         async authorize(credentials, req) {
-          
-          const email = credentials?.email
-          const password = credentials?.password
-          
-          mongoose.connect(process.env.DATABASE_ACCESS)
+          console.log(credentials)
+          const email = credentials?.email;
+          const password = credentials?.password;
   
-          const user = await User.findOne({email})
-  
-          const passwordOk = user && bcrypt.compareSync(password, user.password)
-      
+          mongoose.connect(process.env.DATABASE_ACCESS);
+          const user = await User.findOne({ email });
+          console.log(user)
+          const passwordOk = user && bcrypt.compareSync(password, user.password);
+          console.log(passwordOk)
           if (passwordOk) {
-            
-            return user
+            return user;
           }
   
-          return null;
-        },
-      }),
-    ],
+          return null
+        }
+      })
+  ],
+  session: {
+    strategy: "jwt",
+  },
   };

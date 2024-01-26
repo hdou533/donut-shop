@@ -21,7 +21,7 @@ const EditUserPage = () => {
                 setUser(user)
             })
         })
-    }, [id])
+    }, [])
     
     const handleSaveProfile = async (e, data) => {
         e.preventDefault()

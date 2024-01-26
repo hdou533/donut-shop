@@ -33,13 +33,13 @@ const UsersPage = () => {
     return (
         <section className="max-w-2xl mx-auto min-h-60">
             <UserTab isAdmin={true} />
-            <div className="max-w-2xl mx-auto flex flex-col gap-2">
+            <div className="max-w-2xl mx-auto flex flex-col gap-2 my-8">
                 
                     
                     {users?.length > 0 && users.map(user => (
                         <div key={user._id} className="bg-gray-100 px-4 py-2 rounded-lg grid grid-cols-5 gap-4 items-center">
                             <div className="col-span-4 flex flex-col sm:flex-row gap-2 sm:gap-8">
-                                <span className="font-semibold  text-wrap">{user.name}</span>
+                                <span className="w-[96px] font-semibold  text-wrap">{user.name}</span>
                                 <span className="text-gray-500 text-wrap">{user.email}</span>
                             </div>
                             
