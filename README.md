@@ -53,5 +53,5 @@ Visit the [Donut Shop Demo](https://donut-shop-eight.vercel.app/) to experience 
 
 4. **Run the Application:**
    ```bash
-   yarn dev
+   npm run dev
    ```
