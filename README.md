@@ -55,3 +55,8 @@ Visit the [Donut Shop Demo](https://donut-shop-eight.vercel.app/) to experience 
    ```bash
    npm run dev
    ```
+
+## Screenshots - Admin Access
+![Alt Text](https://hdou533-donuts-shop.s3.amazonaws.com/category.png)
+![Alt Text](https://hdou533-donuts-shop.s3.amazonaws.com/menu_item.png)
+![Alt Text](https://hdou533-donuts-shop.s3.amazonaws.com/orders.png)
