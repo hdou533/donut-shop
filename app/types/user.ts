@@ -13,10 +13,12 @@ export interface User {
 }
 
 export interface UserProfile {
-  loading: boolean;
-  data: {
-    name: string;
-    email: string;
-    admin: boolean;
-  } | null;
+  name: string;
+  email: string;
+  admin: boolean;
+  phone?: string;
+  streetAddress?: string;
+  city?: string;
+  postalCode?: string;
+  country?: string;
 }

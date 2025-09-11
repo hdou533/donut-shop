@@ -2,6 +2,7 @@
 import DeleteBtn from "@/components/DeleteBtn";
 import { useProfile } from "@/components/UseProfile";
 import UserTab from "@/components/layout/UserTab";
+import { FormEvent } from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -9,7 +10,7 @@ const CategoriesPage = () => {
   const [categoryName, setCategoryName] = useState("");
   const [categories, setCategories] = useState([]);
   const [editCategory, setEditCategory] = useState(null);
-  const { data: profileData, loading: profileLoading } = useProfile();
+  const profileData = useProfile();
 
   useEffect(() => {
     fetchCategories();
@@ -26,7 +27,7 @@ const CategoriesPage = () => {
     });
   };
 
-  const handleCategorySubmit = (e) => {
+  const handleCategorySubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const createPromise = new Promise(async (resolve, reject) => {
