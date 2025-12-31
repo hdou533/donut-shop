@@ -60,3 +60,9 @@ Visit the [Donut Shop Demo](https://donut-shop-eight.vercel.app/) to experience 
 ![Alt Text](https://hdou533-donuts-shop.s3.amazonaws.com/category.png)
 ![Alt Text](https://hdou533-donuts-shop.s3.amazonaws.com/menu_item.png)
 ![Alt Text](https://hdou533-donuts-shop.s3.amazonaws.com/orders.png)
+
+
+## Changelog
+
+### 2025-12-31
+- Migrated project from JavaScript to TypeScript.
