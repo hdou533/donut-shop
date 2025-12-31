@@ -17,7 +17,7 @@ const OrderPage = () => {
   const cartContext = useContext(CartContext);
   const clearCart = cartContext?.clearCart;
   const [order, setOrder] = useState<Order | null>();
-  const { data: profileData } = useProfile() as UserProfile;
+  const { data: profileData } = useProfile();
   const { id } = useParams();
 
   useEffect(() => {

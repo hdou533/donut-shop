@@ -5,10 +5,13 @@ import { authOptions } from "@/libs/authOptions";
 import { Order } from "@/models/Order";
 import moment from "moment-timezone";
 import { isAdmin } from "@/libs/isAdmin";
+import { NextRequest } from "next/server";
 
-export async function GET(req) {
-  mongoose.connect(process.env.DATABASE_ACCESS);
+export async function GET(req: NextRequest) {
+  const dbUri = process.env.DATABASE_ACCESS;
+  if (!dbUri) throw new Error("DATABASE_ACCESS is not set");
 
+  await mongoose.connect(dbUri);
   const session = await getServerSession(authOptions);
 
   const userEmail = await session?.user?.email;

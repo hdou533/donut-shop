@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { NextAuthOptions } from "next-auth";
-import clientPromise from "./mongodbConnect";
-import { User } from "@/models/User";
+import { clientPromise } from "./mongodbConnect";
+import { User as UserModel } from "@/models/User";
+import { User as UserType } from "@/types/user";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.SECRET,
@@ -26,27 +27,33 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        const email = credentials?.email;
-        const password = credentials?.password;
+      async authorize(
+        credentials?: Record<"email" | "password", string>
+      ): Promise<import("next-auth").User | null> {
+        if (!credentials?.email || !credentials?.password) return null;
 
-        await mongoose.connect(process.env.DATABASE_ACCESS || "");
-        const user = await User.findOne({ email });
+        const userDoc = await UserModel.findOne({ email: credentials.email })
+          .lean()
+          .exec();
+        if (!userDoc) return null;
 
-        let passwordOk = false;
-        if (user && typeof password === "string") {
-          passwordOk = bcrypt.compareSync(password, user.password);
-        }
+        const isValid = await bcrypt.compare(
+          credentials.password,
+          userDoc.password || ""
+        );
+        if (!isValid) return null;
 
-        if (passwordOk) {
-          return user;
-        }
+        const { password, _id, ...rest } = userDoc;
 
-        return null;
+        // Return an object matching NextAuth.User
+        return {
+          id: _id.toString(), // NextAuth requires `id`
+          name: rest.name,
+          email: rest.email,
+          image: rest.image || null,
+        };
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
-  },
+  session: { strategy: "jwt" },
 };

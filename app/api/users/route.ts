@@ -3,7 +3,10 @@ import { isAdmin } from "@/libs/isAdmin";
 import mongoose from "mongoose";
 
 export async function GET() {
-  mongoose.connect(process.env.DATABASE_ACCESS);
+  const dbUri = process.env.DATABASE_ACCESS;
+  if (!dbUri) throw new Error("DATABASE_ACCESS is not set");
+
+  await mongoose.connect(dbUri);
 
   const admin = await isAdmin();
 

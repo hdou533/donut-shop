@@ -8,12 +8,13 @@ import { dateTimeReadable } from "@/libs/datetime";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { Show } from "@/components/icons/Show";
+import { Order } from "@/types/order";
 
 const OrdersPage = () => {
   const { status } = useSession();
-  const [orders, setOrders] = useState();
+  const [orders, setOrders] = useState<Order[]>();
   const [loadingOrders, setLoadingOrders] = useState(false);
-  const { loading, data: profileData } = useProfile();
+  const { loading: profileLoading, data: profileData } = useProfile();
 
   useEffect(() => {
     fetchOrders();
@@ -36,6 +37,10 @@ const OrdersPage = () => {
   if (status === "loading" || loadingOrders) {
     return "Loading orders...";
   }
+
+  if (profileLoading) return "Loading user info...";
+  if (!profileData) return null;
+  if (!profileData.admin) return "Not an admin";
 
   return (
     <section className="mt-8 max-w-2xl mx-auto">
@@ -61,7 +66,7 @@ const OrdersPage = () => {
                     {order.paid ? "Paid" : "Unpaid"}
                   </div>
                   <span className="text-gray-700 text-xs">
-                    {dateTimeReadable(order.createdAt)}
+                    {order.createdAt && dateTimeReadable(order.createdAt)}
                   </span>
                 </div>
 

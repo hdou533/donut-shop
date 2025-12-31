@@ -2,10 +2,12 @@
 import { useEffect, useState } from "react";
 import SectionHeader from "@/components/layout/SectionHeader";
 import MenuItem from "@/components/menu/MenuItem";
+import { Category } from "@/types/category";
+import { MenuItem as MenuItemType } from "@/types/menuItem";
 
 const MenuPage = () => {
-  const [categories, setCategories] = useState([]);
-  const [menuItems, setMenuItems] = useState([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [menuItems, setMenuItems] = useState<MenuItemType[]>([]);
 
   useEffect(() => {
     fetch("/api/categories").then((res) => {

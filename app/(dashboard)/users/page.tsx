@@ -9,7 +9,7 @@ import UserTab from "@/components/layout/UserTab";
 
 const UsersPage = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const { loading, data } = useProfile() as UserProfile;
+  const { loading, data } = useProfile();
   const name = data?.name ?? "";
   const email = data?.email ?? "";
   const isAdmin = data?.admin ?? false;
@@ -37,13 +37,11 @@ const UsersPage = () => {
         {users?.length > 0 &&
           users.map((user) => (
             <div
-              key={user._id}
+              key={user._id?.toString()}
               className="bg-gray-100 px-4 py-2 rounded-lg grid grid-cols-5 gap-4 items-center"
             >
               <div className="col-span-4 flex flex-col sm:flex-row gap-2 sm:gap-8">
-                <span className="w-[96px] font-semibold  text-wrap">
-                  {name}
-                </span>
+                <span className="w-24 font-semibold  text-wrap">{name}</span>
                 <span className="text-gray-500 text-wrap">{email}</span>
               </div>
 

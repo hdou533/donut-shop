@@ -1,11 +1,18 @@
 import { Address } from "@/types/address";
 
+interface AddressInputsProps {
+  email?: string;
+  addressProps: Address;
+  setAddressProp: (key: keyof Address, value: string) => void;
+  disabled?: boolean;
+}
+
 const AddressInputs = ({
   email,
   addressProps,
   setAddressProp,
   disabled = false,
-}: Address) => {
+}: AddressInputsProps) => {
   const { phone, streetAddress, postalCode, city, country } = addressProps;
 
   return (

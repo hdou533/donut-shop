@@ -15,8 +15,7 @@ const EditMenuItemPage = () => {
   const router = useRouter();
   const [menuItem, setmenuItem] = useState<MenuItem | null>(null);
 
-  const { data: profileData, loading: profileLoading } =
-    useProfile() as UserProfile;
+  const { data: profileData, loading: profileLoading } = useProfile();
   const { id } = useParams();
   const menuItemId = Array.isArray(id) ? id[0] : id;
 
@@ -92,7 +91,7 @@ const EditMenuItemPage = () => {
 
   return (
     <section className="max-w-xl mx-auto min-h-60 mb-8">
-      <UserTab isAdmin={profileData && profileData.admin} />
+      <UserTab isAdmin={profileData ? profileData.admin : false} />
       <div className="max-w-lg mx-auto text-cetner mt-4">
         <Link href={"/menu-items"} className="">
           <span className="underline underline-offset-4 hover:decoration-primary hover:text-primary ">

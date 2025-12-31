@@ -9,8 +9,8 @@ import UserTab from "@/components/layout/UserTab";
 import UserForm from "@/components/layout/UserForm";
 
 const EditUserPage = () => {
-  const { loading, data } = useProfile() as UserProfile;
-  const [user, setUser] = useState<User>();
+  const { loading, data } = useProfile();
+  const [user, setUser] = useState<Partial<User>>({});
   const { id } = useParams();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const EditUserPage = () => {
     });
   }, [id]);
 
-  const handleSaveProfile = async (e: React.FormEvent, data: User) => {
+  const handleSaveProfile = async (e: React.FormEvent, data: Partial<User>) => {
     e.preventDefault();
 
     const promise: Promise<void> = new Promise(async (resolve, reject) => {

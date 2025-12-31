@@ -1,3 +1,3 @@
-export function dateTimeReadable(str) {
-    return str.replace('T',' ').split('.')[0]
+export function dateTimeReadable(str: string) {
+  return str.replace("T", " ").split(".")[0];
 }

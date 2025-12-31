@@ -1,8 +1,13 @@
+import { UserProfile } from "@/types/user";
 import { useState, useEffect } from "react";
-import { UserProfile } from "../types/user";
 
-export const useProfile = (): UserProfile => {
-  const [data, setData] = useState<UserProfile["data"]>(null);
+type UserProfileResult = {
+  data: UserProfile | null;
+  loading: boolean;
+};
+
+export const useProfile = (): UserProfileResult => {
+  const [data, setData] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

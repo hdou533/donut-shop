@@ -1,36 +1,26 @@
-// This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb
 import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 
-if (!process.env.DATABASE_ACCESS) {
-  throw new Error('Invalid/Missing environment variable: "DATABASE_ACCESS"');
-}
+const MONGO_URI = process.env.DATABASE_ACCESS || "";
 
-const uri = process.env.DATABASE_ACCESS;
-const options = {};
+// if (!MONGO_URI) {
+//   throw new Error("Please define the DATABASE_ACCESS environment variable");
+// }
 
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
+// let cached = (global as any).mongoose;
+// if (!cached) {
+//   cached = (global as any).mongoose = { conn: null, promise: null };
+// }
 
-// Add type for global to avoid implicit any
-declare global {
-  // eslint-disable-next-line no-var
-  var _mongoClientPromise: Promise<MongoClient> | undefined;
-}
+// export async function connectToDB() {
+//   if (cached.conn) return cached.conn;
+//   if (!cached.promise) {
+//     cached.promise = mongoose.connect(MONGO_URI).then((mongoose) => mongoose);
+//   }
+//   cached.conn = await cached.promise;
+//   return cached.conn;
+// }
 
-if (process.env.NODE_ENV === "development") {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    global._mongoClientPromise = client.connect();
-  }
-  clientPromise = global._mongoClientPromise;
-} else {
-  // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options);
-  clientPromise = client.connect();
-}
+const client = new MongoClient(MONGO_URI);
 
-// Export a module-scoped MongoClient promise. By doing this in a
-// separate module, the client can be shared across functions.
-export default clientPromise;
+export const clientPromise = client.connect();
