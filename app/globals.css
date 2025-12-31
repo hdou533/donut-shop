@@ -1,0 +1,90 @@
+@import 'tailwindcss';
+
+@config '../tailwind.config.js';
+
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+   /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+  }
+}
+
+section.hero {
+    @apply grid;
+    grid-template-columns: .4fr .6fr;
+}
+
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="tel"],
+select {
+    @apply block w-full rounded-xl;
+    @apply border p-2 border-gray-300 bg-gray-50 border-gray-300 transition duration-300;
+}
+
+
+input[type="email"]:disabled,
+input[type="password"]:disabled,
+input[type="text"]:disabled
+input[type="tel"]:disabled {
+    @apply bg-gray-300 
+}
+
+textarea {
+    @apply block w-full rounded-xl;
+    @apply p-2.5  text-gray-700 bg-gray-50 border border-gray-300 
+}
+
+button, .button {
+    @apply block w-full text-gray-700 font-semibold;
+    @apply border rounded-xl border-gray-300 px-6 py-2;
+}
+
+button[type="submit"], .submit {
+    @apply border-0 bg-primary text-white;
+}
+
+button[type="submit"]:disabled, .submit:disabled {
+    @apply cursor-not-allowed;
+}
+
+label {
+    @apply text-gray-500 text-sm
+}
+
+div.tabs > * {
+    @apply bg-gray-300 text-gray-700 rounded-full px-4 py-2;
+}
+
+div.tabs > *.active {
+    @apply bg-primary text-white;
+}
+option {
+    width: 120px !important;
+}
