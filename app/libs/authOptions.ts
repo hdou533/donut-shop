@@ -1,12 +1,11 @@
-import mongoose from "mongoose";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import bcrypt from "bcryptjs";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { NextAuthOptions } from "next-auth";
+import bcrypt from "bcryptjs";
 import { clientPromise } from "./mongodbConnect";
 import { User as UserModel } from "@/models/User";
-import { User as UserType } from "@/types/user";
+import { DefaultUser } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.SECRET,
@@ -29,7 +28,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(
         credentials?: Record<"email" | "password", string>
-      ): Promise<import("next-auth").User | null> {
+      ): Promise<DefaultUser | null> {
         if (!credentials?.email || !credentials?.password) return null;
 
         const userDoc = await UserModel.findOne({ email: credentials.email })
@@ -45,9 +44,8 @@ export const authOptions: NextAuthOptions = {
 
         const { password, _id, ...rest } = userDoc;
 
-        // Return an object matching NextAuth.User
         return {
-          id: _id.toString(), // NextAuth requires `id`
+          id: _id.toString(),
           name: rest.name,
           email: rest.email,
           image: rest.image || null,
